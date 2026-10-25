@@ -7,6 +7,7 @@ import type { LatLng, SelectedPoint } from '../types'
 
 const DEFAULT_CENTER: [number, number] = [42.8, 12.5]
 const DEFAULT_ZOOM = 6
+const POINT_ZOOM = 11
 
 const pinIcon = divIcon({
   className: '',
@@ -26,8 +27,24 @@ function FlyTo({ target }: { target: SelectedPoint | null }) {
   const map = useMap()
   useEffect(() => {
     if (!target) return
-    map.flyTo([target.lat, target.lon], Math.max(map.getZoom(), 11), { duration: 0.8 })
+    const center: [number, number] = [target.lat, target.lon]
+    const zoom = Math.max(map.getZoom(), POINT_ZOOM)
+    const el = map.getContainer()
+    // flyTo on a container that has no size yet (CSS still loading) computes NaN coordinates and throws
+    if (el.clientWidth === 0 || el.clientHeight === 0) map.setView(center, zoom)
+    else map.flyTo(center, zoom, { duration: 0.8 })
   }, [map, target])
+  return null
+}
+
+/** Leaflet only tracks window resizes; the container can also change size, e.g. when CSS arrives late. */
+function SizeWatcher() {
+  const map = useMap()
+  useEffect(() => {
+    const observer = new ResizeObserver(() => map.invalidateSize({ animate: false }))
+    observer.observe(map.getContainer())
+    return () => observer.disconnect()
+  }, [map])
   return null
 }
 
@@ -77,8 +94,8 @@ export default function MapView({ selected, onPick, radar, radarFrameIndex, rada
 
   return (
     <MapContainer
-      center={DEFAULT_CENTER}
-      zoom={DEFAULT_ZOOM}
+      center={position ?? DEFAULT_CENTER}
+      zoom={position ? POINT_ZOOM : DEFAULT_ZOOM}
       zoomControl={false}
       className="h-full w-full"
       attributionControl={true}
@@ -89,6 +106,7 @@ export default function MapView({ selected, onPick, radar, radarFrameIndex, rada
       />
       {radarVisible && radar && <RadarOverlay radar={radar} frameIndex={radarFrameIndex} />}
       <ClickCatcher onPick={onPick} />
+      <SizeWatcher />
       <FlyTo target={selected} />
       {position && <Marker position={position} icon={pinIcon} />}
     </MapContainer>
