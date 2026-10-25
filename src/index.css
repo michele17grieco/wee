@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --chart-text: #52514e;
+  --chart-grid: #e1e0d9;
+}
+
+.dark {
+  color-scheme: dark;
+  --chart-text: #94a3b8;
+  --chart-grid: #283548;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overscroll-behavior: none;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  @apply bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #d4dadc;
+  font-family: inherit;
+}
+
+.dark .leaflet-container {
+  background: #0f172a;
+}
+
+/* Dims only the base tiles (default pane), not the radar (custom pane) */
+.dark .leaflet-tile-pane .leaflet-tile {
+  filter: brightness(0.7) contrast(1.05) saturate(0.65);
+}
+
+.wee-pin {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  background: #e11d48;
+  border: 3px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+}
+
+.wee-pin::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+input[type='range'].wee-range {
+  accent-color: #3987e5;
+}
