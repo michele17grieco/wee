@@ -10,7 +10,7 @@
 
 Weather models work on grid cells several kilometres wide, so a mountain hut at 2,700 m and the valley below often get the same forecast. Wee corrects the forecast for the real elevation of the point, compares three global models to show how much they agree, and tells you whether it is raining on that exact spot right now. It is built for beach days, skiing and hiking.
 
-**[▶ Live demo](https://migr17.github.io/wee/)** · installable as an app on iOS and Android · no account, no API keys, no backend
+**[▶ Live demo](https://michele17grieco.github.io/wee/)** · installable as an app on iOS and Android · no account, no API keys, no backend
 
 <table>
   <tr>
@@ -92,7 +92,7 @@ Alert thresholds for each activity live in a single config object: [`src/lib/act
 Requires Node.js 20.19+ (22 LTS recommended).
 
 ```bash
-git clone https://github.com/migr17/wee.git
+git clone https://github.com/michele17grieco/wee.git
 cd wee
 npm install
 npm run dev        # http://localhost:5173
