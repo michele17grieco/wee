@@ -5,6 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)
 ![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=black)
 ![PWA](https://img.shields.io/badge/PWA-installable-5a0fc8)
+[![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-d97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
 **A weather forecast for the exact GPS point you tap on the map — not for the nearest town.**
 
@@ -137,6 +138,12 @@ The build is a static site, so any static host works. PWAs require HTTPS, which 
 - Sunrise / sunset and daylight hours
 - Wind and swell for water sports (Open-Meteo Marine API)
 - Shareable links to a point (`?lat=…&lon=…`)
+
+## How it was built
+
+**The idea and every product decision are mine.** I came up with Wee and decided what it should be: a forecast for the exact point instead of the nearest town, the elevation correction, the multi-model confidence index, the point radar, the activity modes and their alert thresholds, and the overall look and feel.
+
+To turn those decisions into code I worked with [Claude Code](https://claude.com/claude-code), Anthropic's AI coding assistant, which I used as a pair programmer for the implementation, unit tests, code review and documentation.
 
 ## License
 
